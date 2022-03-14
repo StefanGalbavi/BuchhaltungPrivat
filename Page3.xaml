@@ -1,0 +1,191 @@
+﻿<Page x:Class="BuchhaltungPrivat.Pages.Page3"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BuchhaltungPrivat.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page3" Background="White">
+    <Page.Resources>
+        <DataTemplate x:Key="ListViewItemTemplate1">
+            <TextBlock Background="Transparent" Foreground="{Binding ValueColor}" FontSize="16" HorizontalAlignment="Right" Margin="0,0,5,0" Padding="0,7" Text="{Binding KontoAmount}" Width="Auto"/>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--Header-->
+        <StackPanel Grid.ColumnSpan="20" Grid.RowSpan="14" Grid.Row="0" Background="WhiteSmoke">
+            <Grid Background="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Center"
+                         FontSize="20" FontWeight="DemiBold"
+                         BorderThickness="0"
+                         Grid.Row="2"
+                         Background="WhiteSmoke">Rubriken</TextBox>
+            </Grid>
+        </StackPanel>
+
+        <!--Content-->
+        <Grid Grid.Row="2" Grid.ColumnSpan="20" Grid.RowSpan="12">
+            <DataGrid CellStyle="{StaticResource MyDataGridCell}"
+                      DataGrid.GridLinesVisibility="Horizontal"
+                      HorizontalGridLinesBrush="WhiteSmoke"
+                      BorderThickness="0, 1, 0, 0" 
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False" 
+                      x:Name="ListCategorys" 
+                      ItemsSource="{Binding Items}" 
+                      SelectionMode="Extended">
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="BorderThickness" Value="1,0,0,0"/>
+                        <Setter Property="BorderBrush" Value="DarkGray"/>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Category.CategoryName}" Width="150"/>
+                    <DataGridTextColumn Header="Kategorie" Binding="{Binding SubCategoryName}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+
+        <!--Footer-->
+        <Grid Grid.Row="15" Grid.ColumnSpan="20" Grid.RowSpan="4" Background="WhiteSmoke" Margin="0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.ColumnSpan="6" FontWeight="SemiBold" FontSize="14" Content="Rubrik erstellen:"/>
+            <Label Grid.ColumnSpan="4" Grid.Row="1" Content="Kategorie" FontSize="12"/>
+            <ComboBox  BorderThickness="0"
+                   Grid.Row="2"
+                   Grid.ColumnSpan="4"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Left"
+                   x:Name="cb_categoryNew">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding CategoryName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Grid.Column="5"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="4"
+                   Content="Bezeichnung"
+                   FontSize="12"/>
+            <TextBox x:Name="txb_kategorieBezeichnung"
+                     Grid.Row="2"
+                     Grid.Column="5"
+                     Grid.ColumnSpan="4"
+                     Padding="3,2,0,3"
+                     Background="Transparent"/>
+        </Grid>
+
+
+        <!--Footer Buttons-->
+        <Button x:Name="bt_categoryMaking"
+                Grid.Row="20"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource ButtonBuchung}"
+                Click="bt_categoryMaking_Click">
+            <StackPanel Orientation="Horizontal">
+                <!--<Image Source="\Images\btn_buchungen.png"/>-->
+                <Label Style="{StaticResource lbl_buttonBuchung}">Eintragen</Label>
+            </StackPanel>
+        </Button>
+    </Grid>
+
+</Page>

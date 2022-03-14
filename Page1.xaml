@@ -1,0 +1,373 @@
+﻿<Page x:Class="BuchhaltungPrivat.Pages.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BuchhaltungPrivat.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1" Background="White">
+    <Page.Resources>
+        <DataTemplate x:Key="ListViewItemTemplate1">
+            <TextBlock Background="Transparent" Foreground="{Binding ValueColor}" FontSize="16" HorizontalAlignment="Right" Margin="0,0,5,0" Padding="0,7" Text="{Binding Amount}" Width="Auto"/>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--Header-->
+        <StackPanel Grid.ColumnSpan="20" Grid.RowSpan="14" Grid.Row="0" Background="WhiteSmoke">
+            <Grid Background="WhiteSmoke">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Center"
+                         FontSize="20" FontWeight="DemiBold"
+                         BorderThickness="0"
+                         Grid.Row="2"
+                         Background="WhiteSmoke">Buchungen</TextBox>
+
+                <DatePicker HorizontalContentAlignment="Right"
+                            VerticalAlignment="Center" FontSize="16" 
+                            BorderThickness="0" 
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            Name="datePicker" 
+                            DataContext="{Binding }"
+                            DisplayDate="{Binding DateTime.Now}"
+                            CalendarOpened="DatePicker_Opened"
+                            HorizontalAlignment="Right"
+                            Width="154"
+                            Background="WhiteSmoke">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <TextBox x:Name="PART_TextBox"
+                                                 Text="{Binding Path=SelectedDate, StringFormat = {}{0:MMMM yyyy},
+                                                 RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}"
+                                                 HorizontalAlignment="Stretch"
+                                                 BorderThickness="0,0,0,1"
+                                                 Background="WhiteSmoke"
+                                                 Foreground="Green"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
+                <TextBox HorizontalContentAlignment="Left"
+                         VerticalContentAlignment="Center"
+                         FontWeight="DemiBold"
+                         FontSize="16"
+                         BorderThickness="0"
+                         Grid.Row="2"
+                         Grid.Column="3"
+                         Text="Übertrag Vormonat"
+                         Background="WhiteSmoke"/>
+
+                <Label x:Name="lbl_uebertragVormonat"
+                       HorizontalContentAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       FontSize="16" FontWeight="DemiBold"
+                       BorderThickness="0"
+                       Grid.Row="2"
+                       Grid.Column="4"/>
+
+                <ComboBox x:Name="cb_shwoKontoHeader"
+                          Style="{StaticResource ComboBoxings}"
+                          SelectionChanged="ComboBox1_SelectedIndexChanged"
+                          SelectedIndex="2"
+                          Grid.Row="2"
+                          Grid.Column="5">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding KontoName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </Grid>
+        </StackPanel>
+
+        <!--Content-->
+        <Grid Grid.Row="2" Grid.ColumnSpan="20" Grid.RowSpan="12">
+            <DataGrid CellStyle="{StaticResource MyDataGridCell}"
+                      DataGrid.GridLinesVisibility="Horizontal"
+                      HorizontalGridLinesBrush="WhiteSmoke"
+                      BorderThickness="0, 1, 0, 1" 
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False" 
+                      x:Name="ListReportAusgaben" 
+                      ItemsSource="{Binding Items}" 
+                      SelectionMode="Extended">
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="BorderThickness" Value="1,0,0,0"/>
+                        <Setter Property="BorderBrush" Value="DarkGray"/>
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datum" Binding="{Binding Date, StringFormat=dd.MM.yyyy}" Width="*"/>
+                    <DataGridTextColumn Header="Konto" Binding="{Binding Konto.KontoName}" Width="*"/>
+                    <DataGridTextColumn Header="Kategorie" Binding="{Binding SubCategory.SubCategoryName}" Width="*"/>
+                    <DataGridTextColumn Header="Betrag" Binding="{Binding Amount, StringFormat=N2}" Width="*" CellStyle="{StaticResource MyDataGridCellAmount}"/>
+                    <DataGridTextColumn Header="Notiz" Binding="{Binding Note}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <TextBox FontSize="14"
+                 FontWeight="DemiBold"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 Padding="1,2"
+                 Grid.Row="14"
+                 Grid.ColumnSpan="3">Summe Monat:</TextBox>
+        <TextBox x:Name="txb_summeMonat"
+                 FontSize="14"
+                 FontWeight="DemiBold"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 Padding="12,2"
+                 Grid.Column="12"
+                 Grid.ColumnSpan="4"
+                 Grid.Row="14"
+                 HorizontalContentAlignment="Right"></TextBox>
+        <TextBox FontSize="14"
+                 FontWeight="DemiBold"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 Grid.Column="16"
+                 Grid.ColumnSpan="2"
+                 Grid.Row="14"
+                 Padding="1,2">Gesamt:</TextBox>
+        <TextBox x:Name="txb_summeMonat2"
+                 FontSize="14"
+                 FontWeight="DemiBold"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 Padding="1,2"
+                 Grid.Column="18"
+                 Grid.ColumnSpan="2"
+                 Grid.Row="14"
+                 HorizontalContentAlignment="Right"></TextBox>
+        <!--Footer Buchungen-->
+        <!--<StackPanel Grid.Row="15" Grid.ColumnSpan="20" Grid.RowSpan="4">-->
+        <Grid Grid.Row="15" Grid.ColumnSpan="20" Grid.RowSpan="4" Background="WhiteSmoke" Margin="0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.ColumnSpan="6" FontWeight="SemiBold" FontSize="14" Content="Buchung erstellen:"/>
+            <Label Grid.ColumnSpan="3" Grid.Row="1" Content="Datum:" FontSize="12"/>
+            <DatePicker BorderThickness="0"
+                        x:Name="datumEinnahme"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="3"
+                        DisplayDate="{Binding DateTime.Now}"
+                        Margin="0"
+                        Padding="0">
+                <DatePicker.Resources>
+                    <Style TargetType="DatePickerTextBox">
+                        <Setter Property="Control.Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBox Text="{Binding Path=SelectedDate, StringFormat = {}{0:dd MM yyyy},
+                                             RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}"
+                                             HorizontalAlignment="Stretch"
+                                             BorderThickness="0"
+                                             Background="#EAEAEA"
+                                             Foreground="DarkGray"/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+
+            <Label Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="3" Content="Konto auswählen:" FontSize="12"/>
+            <ComboBox  BorderThickness="0"
+                   Grid.Column="4"
+                   Grid.ColumnSpan="3"
+                   Grid.Row="2"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Left"
+                   x:Name="cb_konten">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding KontoName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Grid.Column="8" Grid.Row="1" Grid.ColumnSpan="3" Content="Rubrik wählen:" FontSize="12"/>
+            <ComboBox  BorderThickness="0"
+                   Grid.Row="2"
+                   Grid.Column="8"
+                   Grid.ColumnSpan="3"
+                   VerticalContentAlignment="Center"
+                   HorizontalContentAlignment="Left"
+                   x:Name="cb_rubrik">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding SubCategoryName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Grid.Column="12" Grid.Row="1" Grid.ColumnSpan="3" Content="Betrag eingeben:" FontSize="12"/>
+            <TextBox x:Name="buchungEinnahmen" Grid.Row="2" Grid.Column="12" Grid.ColumnSpan="3" Padding="3,2,0,3" Background="Transparent"/>
+
+            <Label Grid.Column="16" Grid.Row="1" Grid.ColumnSpan="3" Content="Buchungsart:" FontSize="12"/>
+            <ComboBox x:Name="cb_kategorie"
+                  BorderThickness="0"
+                  Grid.Row="2"
+                  Grid.Column="16"
+                  Grid.ColumnSpan="3"
+                  VerticalContentAlignment="Center"
+                  HorizontalContentAlignment="Left"
+                  SelectionChanged="cb_kategorie_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding CategoryName}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Label Grid.Column="20" Grid.Row="1" Grid.ColumnSpan="3" Content="Notiz:" FontSize="12"/>
+            <TextBox x:Name="notizEinnahmen" Grid.Row="2" Grid.Column="20" Grid.ColumnSpan="3" Padding="3,2,0,3" Background="Transparent"></TextBox>
+        </Grid>
+        <!--</StackPanel>-->
+        <!--Footer Buttons-->
+        <Button x:Name="bt_buchungErstellen"
+                Grid.Row="20"
+                Grid.ColumnSpan="3"
+                Style="{StaticResource ButtonBuchung}"
+                Click="bt_buchungErstellen_Click">
+            <StackPanel Orientation="Horizontal">
+                <!--<Image Source="\Images\btn_buchungen.png"/>-->
+                <Label Style="{StaticResource lbl_buttonBuchung}">Eintragen</Label>
+            </StackPanel>
+        </Button>
+        <Button  Style="{StaticResource ButtonBuchung}"
+                 x:Name="btn_pdfExport"
+                 Grid.Column="10"
+                 Grid.ColumnSpan="3"
+                 Grid.Row="20"
+                 Click="btn_pdfExport_Click">
+            <StackPanel Orientation="Horizontal">
+                <!--<Image Source="\Images\btn_CloseWind.png"/>-->
+                <Label Style="{StaticResource lbl_buttonBuchung}">PDF Export</Label>
+            </StackPanel>
+        </Button>
+        <Button  Style="{StaticResource ButtonBuchung}"
+                 x:Name="btn_newUmbuchung"
+                 Grid.Column="5"
+                 Grid.ColumnSpan="3"
+                 Grid.Row="20"
+                 Click="btn_newUmbuchung_Click">
+            <StackPanel Orientation="Horizontal">
+                <!--<Image Source="\Images\btn_CloseWind.png"/>-->
+                <Label Style="{StaticResource lbl_buttonBuchung}">Umbuchung</Label>
+            </StackPanel>
+        </Button>
+
+        <Button  Style="{StaticResource ButtonBuchung}"
+                 x:Name="btn_csvImport"
+                 Grid.Column="15"
+                 Grid.ColumnSpan="3"
+                 Grid.Row="20"
+                 Click="btn_csvImport_Click">
+            <StackPanel Orientation="Horizontal">
+                <!--<Image Source="\Images\btn_CloseWind.png"/>-->
+                <Label Style="{StaticResource lbl_buttonBuchung}">CSV-Import</Label>
+            </StackPanel>
+        </Button>
+
+    </Grid>
+</Page>

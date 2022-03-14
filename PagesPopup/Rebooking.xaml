@@ -1,0 +1,82 @@
+﻿<Window x:Class="BuchhaltungPrivat.PagesPopup.Rebooking"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BuchhaltungPrivat.PagesPopup"
+        mc:Ignorable="d"
+        Title="Rebooking" Height="500" Width="400">
+    <Grid>
+        <Grid>
+            <StackPanel Margin="10">
+                <Label Content="Datum der Umbuchung:" Style="{StaticResource lbl_buchungen}"/>
+                <DatePicker x:Name="datumUmbuchung" Margin="0,0,0,15"/>
+                <Label Content="Abgehoben von Konto:" Style="{StaticResource lbl_buchungen}"/>
+                <ComboBox  Margin="0,0,0,15"
+                                       BorderThickness="0"
+                                       VerticalContentAlignment="Center"
+                                       HorizontalContentAlignment="Left"
+                                       x:Name="cb_kontoAusgehend">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding KontoName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label Content="Eingezahlt auf Konto:" Style="{StaticResource lbl_buchungen}"/>
+                <ComboBox  Margin="0,0,0,15"
+                                       BorderThickness="0"
+                                       VerticalContentAlignment="Center"
+                                       HorizontalContentAlignment="Left"
+                                       x:Name="cb_kontoEingehend">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding KontoName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Label Content="Welcher Betrag wurde transferiert?" Style="{StaticResource lbl_buchungen}"/>
+                <TextBox x:Name="txb_betragUmbuchung" Margin="0,0,0,15" Padding="3,2,0,3"/>
+                <Label Content="Anmerkung/Notiz" Style="{StaticResource lbl_buchungen}"/>
+                <!--<TextBox x:Name="txb_notizUmbuchung" Margin="0,0,0,15" Padding="3,2,0,3"/>-->
+                <ComboBox  Margin="0,0,0,15"
+                                       BorderThickness="0"
+                                       VerticalContentAlignment="Center"
+                                       HorizontalContentAlignment="Left"
+                                       x:Name="cb_rubrikUmbuchen">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding SubCategoryName}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Grid Height="100" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="bt_rebooking" Click="bt_rebooking_Click" Grid.Column="1" Grid.Row="1" Style="{StaticResource ButtonBuchung}">
+                        <StackPanel Orientation="Horizontal">
+                            <!--<Image Source="\Images\btn_buchungen.png"/>-->
+                            <Label Style="{StaticResource lbl_buttonBuchung}">Eintragen</Label>
+                        </StackPanel>
+                    </Button>
+                    <Button  Style="{StaticResource ButtonBuchung}" x:Name="btn_rebookingClos" Click="btn_rebookingClos_Click" Grid.Column="3" Grid.Row="1">
+                        <StackPanel Orientation="Horizontal">
+                            <!--<Image Source="\Images\btn_CloseWind.png"/>-->
+                            <Label Style="{StaticResource lbl_buttonBuchung}">Schliessen</Label>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
